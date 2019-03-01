@@ -50,16 +50,88 @@ function ActionOptions(props) {
   );
 }
 
+function RideDressage(props) {
+  return(
+      <button onClick={props.onClick} className="btn btn-success">
+        Ride Dressage
+      </button>
+  );
+}
+
+function RideTrails(props) {
+  return(
+      <button onClick={props.onClick} className="btn btn-warning">
+        Ride Trails
+      </button>
+  );
+}
+
+function RideAgain(props) {
+  return(
+      <button onClick={props.onClick} className="btn btn-primary">
+        Ride Again!
+      </button>
+  );
+}
 
 // RIDE YOUR PONY
 class RideHorse extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      ride: false
+    };
+  }
+
+  handleRideDressage() {
+    this.setState({ride: "Dressage"});
+  }
+
+  handleRideOnTrails() {
+    this.setState({ride: "Trails"});
+  }
+
+  handleRideAgain() {
+    this.setState({ride: false});
+  }
+
   render() {
-    return(
-        <div align="center" class="jumbotron">
-          <h3>Lets take your pony for a ride!</h3>
-          Neigh
-        </div>
-    );
+    var buttonDressage = <RideDressage onClick={() => this.handleRideDressage()} />;
+    var buttonTrails = <RideTrails onClick={() => this.handleRideOnTrails()} />;
+    var buttonRideAgain = <RideAgain onClick={() => this.handleRideAgain()} />;
+
+    if (this.state.ride === false) {
+      return(
+          <div align="center" class="jumbotron">
+            <h3>Lets take your pony for a ride!</h3>
+            {buttonDressage}&nbsp;&nbsp;
+            {buttonTrails}
+          </div>
+      );
+    }
+
+    if (this.state.ride === "Dressage") {
+      return(
+          <div align="center" class="jumbotron">
+            <h3>You are riding your pony in the arena, training for dressage!</h3>
+            <img src='https://molliebachnerdressage.com/wp-content/uploads/2012/12/Dora2016training.jpg' width='300px' alt='dressage'></img>
+            <br/><br/>
+            {buttonRideAgain}
+          </div>
+      );
+    }
+
+    if (this.state.ride === "Trails") {
+      return(
+          <div align="center" class="jumbotron">
+            <h3>You took your pony for a trail ride in the woods - how relaxing!</h3>
+            <img src='https://www.anokacounty.us/ImageRepository/Document?documentID=7359' width='300px' alt='trails'></img>
+            <br/><br/>
+            {buttonRideAgain}
+          </div>
+      );
+    }
+
   }
 }
 
